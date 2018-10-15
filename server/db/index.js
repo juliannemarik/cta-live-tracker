@@ -1,6 +1,6 @@
 const db = require('./db')
+const RedLine = require('./models/redLine.model')
 
-// register models
-require('./models')
+// MODEL ASSOCIATIONS
 
-module.exports = db
+module.exports = { db, RedLine }

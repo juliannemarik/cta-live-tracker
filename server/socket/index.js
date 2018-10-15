@@ -1,9 +1,7 @@
 module.exports = io => {
-  io.on('connection', socket => {
-    console.log(`A socket connection to the server has been made: ${socket.id}`)
 
-    socket.on('disconnect', () => {
-      console.log(`Connection ${socket.id} has left the building`)
-    })
-  })
-}
+  io.on('connection', socket => {
+    console.log('SOCKET CONNECTION -----> ', socket.id, ' has made a persistent connection to the server!');
+  });
+
+};
