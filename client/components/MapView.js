@@ -5,12 +5,10 @@ import { fetchInitialData} from '../store/index'
 
 class MapView extends Component {
   componentDidMount() {
-    console.log('in component did mount')
     this.props.fetchInitialData()
   }
 
   render() {
-    console.log('STATE --->', this.props.redLineTrains)
     return (
       <div id ="tables">
         <table>

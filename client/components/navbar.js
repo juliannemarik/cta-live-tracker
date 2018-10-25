@@ -12,6 +12,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <div>
         <Link to="/map">MAP</Link>
         <Link to="/schedules">SCHEDULES</Link>
+        <Link to="/mapbox">MAPBOX</Link>
       </div>
     </nav>
     <hr />
