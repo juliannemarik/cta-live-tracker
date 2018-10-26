@@ -1,71 +1,40 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchInitialData} from '../store/index'
+import React from 'react';
+import Map from './Map';
+import Sidebar from './Sidebar';
+
+// MATERIAL UI IMPORTS
+import { withStyles } from '@material-ui/core/styles';
 
 
-class MapView extends Component {
-  componentDidMount() {
-    this.props.fetchInitialData()
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    display: 'flex'
+  },
+  sidebar: {
+    width: '15vw'
   }
+});
 
-  render() {
-    return (
-      <div id ="tables">
-        <table>
-          <tbody>
-            <tr>
-              <th colSpan="3" style={{color:'#c60c30'}}>RED LINE</th>
-            </tr>
-            <tr>
-              <th> Route Number </th>
-              <th> Latitude </th>
-              <th> Longitude </th>
-            </tr>
-            {this.props.redLineTrains.map((train,idx) => {
-              return <tr key={idx}>
-              <td>{train.rn}</td>
-              <td>{train.lat}</td>
-              <td>{train.lon}</td>
-              </tr>
-            })}
-          </tbody>
-        </table>
-        <table>
-          <tbody>
-            <tr>
-              <th colSpan="3" style={{color:'#00a1de'}}>BLUE LINE</th>
-            </tr>
-            <tr>
-              <th> Route Number </th>
-              <th> Latitude </th>
-              <th> Longitude </th>
-            </tr>
-            {this.props.blueLineTrains.map((train,idx) => {
-              return <tr key={idx}>
-              <td>{train.rn}</td>
-              <td>{train.lat}</td>
-              <td>{train.lon}</td>
-              </tr>
-            })}
-          </tbody>
-        </table>
-      </div>
-    )
-  }
+const mapStyle = {
+  height: "90vh",
+  width: "80vw"
+}
+
+const MapView = (props) => {
+  const { classes } = props
+  return (
+    <div className={classes.root}>
+      <Map
+      style='mapbox://styles/mapbox/light-v9'
+      center = {[-87.6500, 41.8950]}
+      zoom ={[10]}
+      containerStyle={mapStyle}
+      />
+      <Sidebar width={classes.sidebar}/>
+    </div>
+  )
 }
 
 
-const mapState = state => {
-  return {
-    redLineTrains: state.redLineTrains,
-    blueLineTrains: state.blueLineTrains
-  }
-}
-
-const mapDispatch = dispatch => {
-  return {
-    fetchInitialData: () => dispatch(fetchInitialData())
-  }
-}
-
-export default connect(mapState, mapDispatch)(MapView)
+export default withStyles(styles)(MapView);

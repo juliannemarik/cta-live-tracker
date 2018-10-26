@@ -1,42 +1,44 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchInitialData} from '../store/index'
-import ReactMapboxGl, {Layer, Feature, GeoJSONLayer } from
- 'react-mapbox-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import ReactMapboxGl, {Layer, Feature, GeoJSONLayer } from 'react-mapbox-gl'
 import geojsonCtaLines from '../data/CTA_Rail_Lines.json';
+import geojsonCtaStations from '../data/CTA_Rail_Stations.json';
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const accessToken =
   'pk.eyJ1IjoianVsaWFubmVtYXJpayIsImEiOiJjam5sb280eHEwOWU3M3dueHR5ZThxNmw4In0.tdBsmI4y5XD-1FsLeVS_hQ'
-const style = 'mapbox://styles/mapbox/light-v9'
+// const style = 'mapbox://styles/mapbox/light-v9'
 
-const Map = ReactMapboxGl({
+const Mapbox = ReactMapboxGl({
   accessToken
 })
 
-const mapStyle = {
-  height: '80vh',
-  width: '70vw'
-}
-
-class MapBox extends Component {
+class Map extends Component {
   componentDidMount() {
     this.props.fetchInitialData()
   }
 
   render() {
-    const {redLineTrains, blueLineTrains} = this.props
+    const {style, center, zoom, containerStyle, redLineTrains, blueLineTrains} = this.props
     return (
-      <Map
+      <Mapbox
         style={style}
-        center={[-87.6298, 41.8781]}
-        zoom={[10]}
-        containerStyle={mapStyle}
+        center={center}
+        zoom={zoom}
+        containerStyle={containerStyle}
       >
         <GeoJSONLayer
           data={geojsonCtaLines}
           lineLayout={{
             "line-cap": "round",
+        }}/>
+
+        <GeoJSONLayer
+          data={geojsonCtaStations}
+          circlePaint={{
+            "circle-radius": 1.5,
+            "circle-color": "#000000"
         }}/>
 
         {/* <Layer type="symbol" id="marker" layout={{"icon-image": "rail-11"}}  > */}
@@ -50,9 +52,7 @@ class MapBox extends Component {
             return <Feature key={train.id} coordinates={[train.lon, train.lat]}/>
           })}
         </Layer>
-
-
-      </Map>
+      </Mapbox>
     )
   }
 }
@@ -70,9 +70,7 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(MapBox)
-
-// export default MapBox
+export default connect(mapState, mapDispatch)(Map)
 
 
 

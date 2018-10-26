@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
-import {MapView, MapBox, Schedules} from './components'
+import { Map, Schedules, MapView } from './components'
 
 // ROUTES COMPONENT
 class Routes extends Component {
@@ -14,7 +14,6 @@ class Routes extends Component {
       <Switch>
         <Route exact path = "/" component={MapView} />,
         <Route exact path="/map" component={MapView} />,
-        <Route exact path="/mapbox" component={MapBox} />,
         <Route exact path="/schedules" component={Schedules} />
       </Switch>
     )

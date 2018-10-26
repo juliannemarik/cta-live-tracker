@@ -4,7 +4,7 @@
  * having to figure out which file they belong to!
  */
 export {default as Navbar} from './Navbar'
+export {default as Map} from './Map'
 export {default as MapView} from './MapView'
 export {default as Schedules} from './Schedules'
-export {default as MapBox} from './MapBox'
 
