@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
@@ -43,7 +42,6 @@ const Navbar = (props) => {
           </Typography>
           <Link to="/schedules" className={classes.link}><Button color="inherit">Schedules</Button></Link>
           <Link to="/map" className={classes.link}><Button color="inherit">Map</Button></Link>
-
         </Toolbar>
       </AppBar>
     </div>
@@ -55,28 +53,4 @@ Navbar.propTypes = {
 };
 
 export default withStyles(styles)(Navbar);
-
-
-
-
-
-
-
-// // COMPONENT
-// const Navbar = ({handleClick, isLoggedIn}) => (
-//   <div>
-//     <AppBar position="static">
-//       <Toolbar>
-//           <Typography variant="title" color="inherit">
-//           <Link to="/">CTA LIVE TRACKER</Link>
-//           </Typography>
-//           <Link to="/map">MAP</Link>
-//           <Link to="/schedules">SCHEDULES</Link>
-//       </Toolbar>
-//     </AppBar>
-//   </div>
-// )
-
-
-// export default connect(mapState, mapDispatch)(Navbar)
 

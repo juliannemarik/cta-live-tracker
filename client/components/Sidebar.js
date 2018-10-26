@@ -14,7 +14,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import Paper from '@material-ui/core/Paper'
 
-
 const styles = theme => ({
   root: {
     flexGrow: 1

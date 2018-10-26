@@ -20,7 +20,7 @@ class Map extends Component {
   }
 
   render() {
-    const {style, center, zoom, containerStyle, redLineTrains, blueLineTrains} = this.props
+    const { style, center, zoom, containerStyle, redLineTrains, blueLineTrains, setMap } = this.props
     return (
       <Mapbox
         style={style}
@@ -41,7 +41,6 @@ class Map extends Component {
             "circle-color": "#000000"
         }}/>
 
-        {/* <Layer type="symbol" id="marker" layout={{"icon-image": "rail-11"}}  > */}
         <Layer type="circle" paint={{"circle-radius": 3, "circle-color":"#c60c30"}}>
           {redLineTrains.map((train) => {
             return <Feature key={train.id} coordinates={[train.lon, train.lat]}/>
@@ -66,7 +65,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchInitialData: () => dispatch(fetchInitialData())
+    fetchInitialData: () => dispatch(fetchInitialData()),
   }
 }
 
