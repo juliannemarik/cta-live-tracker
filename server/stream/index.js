@@ -16,7 +16,6 @@ module.exports = () => {
   const appToken = 'MmE0YTc3MmYtZDY4NS00MTI5LWExMjctNzJjZWJmOGMzNmRk'
 
   redLineEventSource = streamdataio.createEventSource(redLinetargetUrl, appToken, [])
-
   blueLineEventSource = streamdataio.createEventSource(blueLineTargetUrl, appToken, [])
 
   let redLineResult = []
