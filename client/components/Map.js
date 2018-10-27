@@ -4,11 +4,6 @@ import {fetchInitialData, setStyle, setMap} from '../store/index'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import Immutable from 'immutable'
-
-// import { setStyle } from '../store/index';
-// import 'mapbox-gl/dist/mapbox-gl.css'
-// import ReactMapboxGl, {Layer, Feature, GeoJSONLayer } from 'react-mapbox-gl'
-
 import geojsonCtaLines from '../data/CTA_Rail_Lines.json'
 import geojsonCtaStations from '../data/CTA_Rail_Stations.json'
 
@@ -129,7 +124,7 @@ class Map extends Component {
 
   render() {
     if (this.props.map !== null) {
-      const { redLineTrains, blueLineTrains } = this.props
+      const {redLineTrains, blueLineTrains} = this.props
       this.props.map.getSource('cta-redLine-trains').setData({
         type: 'FeatureCollection',
         features: redLineTrains.map(train => {

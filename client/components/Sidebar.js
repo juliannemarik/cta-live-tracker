@@ -1,8 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { toggleTrains } from '../store/index'
+import {connect} from 'react-redux'
+import {toggleTrains} from '../store/index'
 import geojsonCtaStations from '../data/CTA_Rail_Stations.json'
-
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -71,20 +70,24 @@ class Sidebar extends React.Component {
     this.setState({anchorEl: null})
   }
 
-
   render() {
     const {width, classes} = this.props
     const {trainDisplay, anchorEl, trainStationIdx} = this.state
     let stationTracker = []
-    const stations = geojsonCtaStations.features.map((station) => {
-      if (!stationTracker.includes(station.properties.name)) {
-        stationTracker.push(station.properties.name)
-        return {
-          stationName: station.properties.name,
-          coordinates: [station.geometry.coordinates[0], station.geometry.coordinates[1]]
+    const stations = geojsonCtaStations.features
+      .map(station => {
+        if (!stationTracker.includes(station.properties.name)) {
+          stationTracker.push(station.properties.name)
+          return {
+            stationName: station.properties.name,
+            coordinates: [
+              station.geometry.coordinates[0],
+              station.geometry.coordinates[1]
+            ]
+          }
         }
-      }
-    }).filter((station) => station)
+      })
+      .filter(station => station)
 
     return (
       <Paper className={`${classes.root} ${width}`}>
@@ -131,7 +134,9 @@ class Sidebar extends React.Component {
               color="secondary"
               className={classes.button}
             >
-              {trainStationIdx!==null ? stations[trainStationIdx].stationName : 'SELECT STATION'}
+              {trainStationIdx !== null
+                ? stations[trainStationIdx].stationName
+                : 'SELECT STATION'}
               <ArrowDropDown className={classes.rightIcon} />
             </Button>
 
@@ -145,7 +150,9 @@ class Sidebar extends React.Component {
                 <MenuItem
                   key={station.stationName}
                   selected={index === this.state.selectedIndex}
-                  onClick={event => this.handleMenuItemClick(event, index, station)}
+                  onClick={event =>
+                    this.handleMenuItemClick(event, index, station)
+                  }
                 >
                   {station.stationName}
                 </MenuItem>
