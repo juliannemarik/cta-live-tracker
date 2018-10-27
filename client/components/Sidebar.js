@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { toggleTrains } from '../store/index'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -51,6 +53,7 @@ class Sidebar extends React.Component {
 
   handleChange = event => {
     this.setState({trainDisplay: event.target.value})
+    this.props.toggleTrains(event.target.value)
   }
 
   handleClick = event => {
@@ -74,6 +77,7 @@ class Sidebar extends React.Component {
       'station 3',
       'station 4',
       'station 5'
+
     ]
 
     return (
@@ -148,4 +152,16 @@ class Sidebar extends React.Component {
   }
 }
 
-export default withStyles(styles)(Sidebar)
+
+
+
+const mapDispatch = dispatch => {
+  return {
+    toggleTrains: option => dispatch(toggleTrains(option))
+  }
+}
+
+export default withStyles(styles)(connect(null, mapDispatch)(Sidebar))
+
+
+// export default withStyles(styles)(Sidebar)

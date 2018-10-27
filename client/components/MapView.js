@@ -16,25 +16,50 @@ const styles = theme => ({
   }
 });
 
-const mapStyle = {
-  height: "90vh",
-  width: "80vw"
-}
+// const mapStyle = {
+//   height: "90vh",
+//   width: "80vw"
+// }
+
+
 
 const MapView = (props) => {
   const { classes } = props
+  const accessToken =
+      'pk.eyJ1IjoianVsaWFubmVtYXJpayIsImEiOiJjam5sb280eHEwOWU3M3dueHR5ZThxNmw4In0.tdBsmI4y5XD-1FsLeVS_hQ';
+    const styleName = 'mapbox/light-v9';
+    const lon = -87.6500;
+    const lat = 41.8950;
+    const zoomScale = 10;
   return (
     <div className={classes.root}>
       <Map
-      style='mapbox://styles/mapbox/light-v9'
-      center = {[-87.6500, 41.8950]}
-      zoom ={[10]}
-      containerStyle={mapStyle}
+          accessToken={accessToken}
+          styleName={styleName}
+          lon={lon}
+          lat={lat}
+          zoomScale={zoomScale}
       />
       <Sidebar width={classes.sidebar}/>
     </div>
   )
 }
+
+
+// const MapView = (props) => {
+//   const { classes } = props
+//   return (
+//     <div className={classes.root}>
+//       <Map
+//       style='mapbox://styles/mapbox/light-v9'
+//       center = {[-87.6500, 41.8950]}
+//       zoom ={[10]}
+//       containerStyle={mapStyle}
+//       />
+//       <Sidebar width={classes.sidebar}/>
+//     </div>
+//   )
+// }
 
 
 export default withStyles(styles)(MapView);

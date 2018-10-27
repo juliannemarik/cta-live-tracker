@@ -45,6 +45,7 @@
     "express-session": "^1.15.1",
     "fast-json-patch": "^2.0.7",
     "history": "^4.6.3",
+    "immutable": "^3.8.2",
     "mapbox-gl": "^0.50.0",
     "morgan": "^1.8.1",
     "node-print": "0.0.4",
