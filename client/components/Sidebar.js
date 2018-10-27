@@ -86,15 +86,6 @@ class Sidebar extends React.Component {
       }
     }).filter((station) => station)
 
-    // console.log("STATION NAMES ----> ", test)
-    // const stations = [
-    //   'station 1',
-    //   'station 2',
-    //   'station 3',
-    //   'station 4',
-    //   'station 5'
-    // ]
-
     return (
       <Paper className={`${classes.root} ${width}`}>
         <Grid
@@ -167,13 +158,11 @@ class Sidebar extends React.Component {
   }
 }
 
-
 const mapState = state => {
   return {
     map: state.map
   }
 }
-
 const mapDispatch = dispatch => {
   return {
     toggleTrains: option => dispatch(toggleTrains(option))
@@ -181,6 +170,3 @@ const mapDispatch = dispatch => {
 }
 
 export default withStyles(styles)(connect(mapState, mapDispatch)(Sidebar))
-
-
-// export default withStyles(styles)(Sidebar)
