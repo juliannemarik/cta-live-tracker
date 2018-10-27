@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { toggleTrains } from '../store/index'
+import geojsonCtaStations from '../data/CTA_Rail_Stations.json'
+
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -60,25 +62,38 @@ class Sidebar extends React.Component {
     this.setState({anchorEl: event.currentTarget})
   }
 
-  handleMenuItemClick = (event, index) => {
+  handleMenuItemClick = (event, index, station) => {
     this.setState({trainStationIdx: index, anchorEl: null})
+    this.props.map.flyTo({center: station.coordinates, zoom: 15})
   }
 
   handleClose = () => {
     this.setState({anchorEl: null})
   }
 
+
   render() {
     const {width, classes} = this.props
     const {trainDisplay, anchorEl, trainStationIdx} = this.state
-    const stations = [
-      'station 1',
-      'station 2',
-      'station 3',
-      'station 4',
-      'station 5'
+    let stationTracker = []
+    const stations = geojsonCtaStations.features.map((station) => {
+      if (!stationTracker.includes(station.properties.name)) {
+        stationTracker.push(station.properties.name)
+        return {
+          stationName: station.properties.name,
+          coordinates: [station.geometry.coordinates[0], station.geometry.coordinates[1]]
+        }
+      }
+    }).filter((station) => station)
 
-    ]
+    // console.log("STATION NAMES ----> ", test)
+    // const stations = [
+    //   'station 1',
+    //   'station 2',
+    //   'station 3',
+    //   'station 4',
+    //   'station 5'
+    // ]
 
     return (
       <Paper className={`${classes.root} ${width}`}>
@@ -125,7 +140,7 @@ class Sidebar extends React.Component {
               color="secondary"
               className={classes.button}
             >
-              {trainStationIdx!==null ? stations[trainStationIdx] : 'SELECT STATION'}
+              {trainStationIdx!==null ? stations[trainStationIdx].stationName : 'SELECT STATION'}
               <ArrowDropDown className={classes.rightIcon} />
             </Button>
 
@@ -135,13 +150,13 @@ class Sidebar extends React.Component {
               open={Boolean(anchorEl)}
               onClose={this.handleClose}
             >
-              {stations.map((option, index) => (
+              {stations.map((station, index) => (
                 <MenuItem
-                  key={option}
+                  key={station.stationName}
                   selected={index === this.state.selectedIndex}
-                  onClick={event => this.handleMenuItemClick(event, index)}
+                  onClick={event => this.handleMenuItemClick(event, index, station)}
                 >
-                  {option}
+                  {station.stationName}
                 </MenuItem>
               ))}
             </Menu>
@@ -153,7 +168,11 @@ class Sidebar extends React.Component {
 }
 
 
-
+const mapState = state => {
+  return {
+    map: state.map
+  }
+}
 
 const mapDispatch = dispatch => {
   return {
@@ -161,7 +180,7 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default withStyles(styles)(connect(null, mapDispatch)(Sidebar))
+export default withStyles(styles)(connect(mapState, mapDispatch)(Sidebar))
 
 
 // export default withStyles(styles)(Sidebar)
