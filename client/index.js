@@ -1,11 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
-import history from './history'
+import {BrowserRouter} from 'react-router-dom'
 import store from './store'
 import App from './app'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 
 const theme = createMuiTheme({
   palette: {
@@ -14,15 +13,13 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#ff5722'
-    },
+    }
   },
   status: {
-    danger: 'orange',
-  },
-});
+    danger: 'orange'
+  }
+})
 
-
-// establishes socket connection
 import './socket'
 
 ReactDOM.render(

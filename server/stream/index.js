@@ -1,8 +1,7 @@
-const { db, RedLine, BlueLine } = require('../db/index.js')
+const {db, RedLine, BlueLine} = require('../db/index.js')
 const streamdataio = require('streamdataio-js-sdk/dist/bundles/streamdataio-node')
 const jsonPatch = require('fast-json-patch')
-var print = require('node-print');
-
+var print = require('node-print')
 
 // STREAMING THE CTA API
 db.sync({force: true}).then(() => console.log('Database is synced'))
@@ -13,20 +12,30 @@ module.exports = () => {
   const blueLineTargetUrl =
     'http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=617671a8d9104a95a0bde1954211c533&rt=blue&outputType=JSON'
 
-  const appToken = 'MmE0YTc3MmYtZDY4NS00MTI5LWExMjctNzJjZWJmOGMzNmRk'
+  const appToken = process.env.STREAMDATA_IO_ACCESS_TOKEN
 
-  redLineEventSource = streamdataio.createEventSource(redLinetargetUrl, appToken, [])
-  blueLineEventSource = streamdataio.createEventSource(blueLineTargetUrl, appToken, [])
+  redLineEventSource = streamdataio.createEventSource(
+    redLinetargetUrl,
+    appToken,
+    []
+  )
+  blueLineEventSource = streamdataio.createEventSource(
+    blueLineTargetUrl,
+    appToken,
+    []
+  )
 
   let redLineResult = []
   let blueLineResult = []
 
   let redLineTrains = []
-  let blueLineTrains = [];
+  let blueLineTrains = []
 
   redLineEventSource
     .onOpen(function() {
-      console.log('RED LINE DATA CONNECTION -----> connected to streaming cta data!')
+      console.log(
+        'RED LINE DATA CONNECTION -----> connected to streaming cta data!'
+      )
     })
     .onData(function(data) {
       redLineResult = data
@@ -53,38 +62,35 @@ module.exports = () => {
     })
 
   blueLineEventSource
-  .onOpen(function() {
-    console.log('BLUE LINE DATA CONNECTION -----> connected to streaming cta data!')
-  })
-  .onData(function(data) {
-    blueLineResult = data
-    blueLineTrains = data.ctatt.route[0].train
-    blueLineTrains.map(train => {
-      BlueLine.create(train)
+    .onOpen(function() {
+      console.log(
+        'BLUE LINE DATA CONNECTION -----> connected to streaming cta data!'
+      )
     })
-  })
-  .onPatch(function(patch) {
-    jsonPatch.applyPatch(blueLineResult, patch)
-    BlueLine.destroy({
-      where: {},
-      truncate: true
+    .onData(function(data) {
+      blueLineResult = data
+      blueLineTrains = data.ctatt.route[0].train
+      blueLineTrains.map(train => {
+        BlueLine.create(train)
+      })
     })
-    blueLineTrains = blueLineResult.ctatt.route[0].train
-    blueLineTrains.map(train => {
-      BlueLine.create(train)
+    .onPatch(function(patch) {
+      jsonPatch.applyPatch(blueLineResult, patch)
+      BlueLine.destroy({
+        where: {},
+        truncate: true
+      })
+      blueLineTrains = blueLineResult.ctatt.route[0].train
+      blueLineTrains.map(train => {
+        BlueLine.create(train)
+      })
+      console.log('\nBLUE LINE DATA UPDATE -----> cta data has been updated!\n')
     })
-    console.log('\nBLUE LINE DATA UPDATE -----> cta data has been updated!\n')
-  })
-  .onError(function(error) {
-    console.log('ERROR!', error)
-    blueLineEventSource.close()
-  })
+    .onError(function(error) {
+      console.log('ERROR!', error)
+      blueLineEventSource.close()
+    })
 
   redLineEventSource.open()
   blueLineEventSource.open()
 }
-
-
-
-
-

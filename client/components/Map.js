@@ -1,9 +1,12 @@
+// EXTERNAL IMPORTS
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchInitialData, setStyle, setMap} from '../store/index'
+import Immutable from 'immutable'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import Immutable from 'immutable'
+
+// INTERNAL IMPORTS
+import {fetchInitialData, setStyle, setMap} from '../store/index'
 import geojsonCtaLines from '../data/CTA_Rail_Lines.json'
 import geojsonCtaStations from '../data/CTA_Rail_Stations.json'
 

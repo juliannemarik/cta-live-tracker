@@ -1,5 +1,8 @@
+// EXTERNAL IMPORTS
 import React from 'react'
 import {connect} from 'react-redux'
+
+// INTERNAL IMPORTS
 import {toggleTrains} from '../store/index'
 import geojsonCtaStations from '../data/CTA_Rail_Stations.json'
 

@@ -1,4 +1,7 @@
+// EXTERNAL IMPORTS
 import React from 'react'
+
+// INTERNAL IMPORTS
 import Map from './Map'
 import Sidebar from './Sidebar'
 
@@ -17,8 +20,7 @@ const styles = theme => ({
 
 const MapView = props => {
   const {classes} = props
-  const accessToken =
-    'pk.eyJ1IjoianVsaWFubmVtYXJpayIsImEiOiJjam5sb280eHEwOWU3M3dueHR5ZThxNmw4In0.tdBsmI4y5XD-1FsLeVS_hQ'
+  const accessToken = process.env.MAPBOX_ACCESS_TOKEN
   const styleName = 'mapbox/light-v9'
   const lon = -87.65
   const lat = 41.895

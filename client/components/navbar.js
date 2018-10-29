@@ -1,7 +1,7 @@
+// EXTERNAL IMPORTS
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
-import {logout} from '../store'
 
 // MATERIAL UI IMPORTS
 import Button from '@material-ui/core/Button'

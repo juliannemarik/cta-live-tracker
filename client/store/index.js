@@ -1,18 +1,3 @@
-// import {createStore, combineReducers, applyMiddleware} from 'redux'
-// import createLogger from 'redux-logger'
-// import thunkMiddleware from 'redux-thunk'
-// import {composeWithDevTools} from 'redux-devtools-extension'
-// import user from './redLine'
-
-// const reducer = combineReducers({user})
-// const middleware = composeWithDevTools(
-//   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
-// )
-// const store = createStore(reducer, middleware)
-
-// export default store
-// export * from './redLine'
-
 import {createStore, applyMiddleware} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import loggingMiddleware from 'redux-logger'
@@ -21,10 +6,10 @@ import axios from 'axios'
 // ACTION TYPES
 const GET_DATA_FROM_SERVER = 'GET_DATA_FROM_SERVER'
 const GET_NEW_DATA_FROM_SERVER = 'GET_NEW_DATA_FROM_SERVER'
-const SET_STYLE = 'SET_STYLE';
-const SET_MAP = 'SET_MAP';
+const SET_STYLE = 'SET_STYLE'
+const SET_MAP = 'SET_MAP'
 
-const TOGGLE_TRAINS = 'TOGGLE_TRAINS';
+const TOGGLE_TRAINS = 'TOGGLE_TRAINS'
 
 // ACTION CREATORS
 export const getDataFromServer = data => ({
@@ -37,11 +22,11 @@ export const getNewDataFromServer = data => ({
 })
 export const setStyle = style => ({
   type: SET_STYLE,
-  style,
+  style
 })
 export const setMap = map => ({
   type: SET_MAP,
-  map,
+  map
 })
 export const toggleTrains = option => ({
   type: TOGGLE_TRAINS,
@@ -85,17 +70,21 @@ const handlers = {
     }
   },
   [SET_STYLE]: (action, state) => {
-    return { ...state, style: action.style };
+    return {...state, style: action.style}
   },
   [SET_MAP]: (action, state) => {
-    return { ...state, map: action.map };
+    return {...state, map: action.map}
   },
   [TOGGLE_TRAINS]: (action, state) => {
-    const newStyle = {...state.style};
-    const redTrainLayer = newStyle.layers.find(layer => layer.id === "cta-redline-trains")
-    const blueTrainLayer = newStyle.layers.find(layer => layer.id === "cta-blueline-trains")
+    const newStyle = {...state.style}
+    const redTrainLayer = newStyle.layers.find(
+      layer => layer.id === 'cta-redline-trains'
+    )
+    const blueTrainLayer = newStyle.layers.find(
+      layer => layer.id === 'cta-blueline-trains'
+    )
 
-    if(action.option === 'all') {
+    if (action.option === 'all') {
       redTrainLayer.layout.visibility = 'visible'
       blueTrainLayer.layout.visibility = 'visible'
     } else if (action.option === 'blueLine') {

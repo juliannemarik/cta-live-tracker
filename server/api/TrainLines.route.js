@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { RedLine, BlueLine } = require('../db/index')
+const {RedLine, BlueLine} = require('../db/index')
 
 router.get('/redLine', async (req, res, next) => {
   try {

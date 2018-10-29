@@ -1,5 +1,8 @@
+// EXTERNAL IMPORTS
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+
+// INTERNAL IMPORTS
 import {fetchInitialData} from '../store/index'
 
 class Schedules extends Component {

@@ -11,6 +11,9 @@ const io = require('socket.io')(server);
 require('./socket/index.js')(io);
 
 module.exports = app;
+
+if (process.env.NODE_ENV !== 'production') require('../secrets')
+
 dataStream();
 
 // Logging middleware
@@ -25,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // 'API' routes
-app.use('/api', require('./api/redLine.route'));
+app.use('/api', require('./api/TrainLines.route'));
 
 // 404 middleware
 app.use((req, res, next) =>
@@ -34,10 +37,10 @@ app.use((req, res, next) =>
     next()
 );
 
-// // send index.html
-// app.use('*', (req, res, next) =>
-//   res.sendFile(path.join(__dirname, '..', 'public/index.html'))
-// );
+// send index.html
+app.use('*', (req, res, next) =>
+  res.sendFile(path.join(__dirname, '..', 'public/index.html'))
+);
 
 // error handling endware
 app.use((err, req, res, next) =>
