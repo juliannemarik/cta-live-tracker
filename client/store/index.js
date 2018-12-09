@@ -4,20 +4,14 @@ import loggingMiddleware from 'redux-logger'
 import axios from 'axios'
 
 // ACTION TYPES
-const GET_DATA_FROM_SERVER = 'GET_DATA_FROM_SERVER'
-const GET_NEW_DATA_FROM_SERVER = 'GET_NEW_DATA_FROM_SERVER'
+const SET_TRAIN_DATA = 'SET_TRAIN_DATA'
 const SET_STYLE = 'SET_STYLE'
 const SET_MAP = 'SET_MAP'
-
 const TOGGLE_TRAINS = 'TOGGLE_TRAINS'
 
 // ACTION CREATORS
-export const getDataFromServer = data => ({
-  type: GET_DATA_FROM_SERVER,
-  data
-})
-export const getNewDataFromServer = data => ({
-  type: GET_NEW_DATA_FROM_SERVER,
+export const setTrainData = data => ({
+  type: SET_TRAIN_DATA,
   data
 })
 export const setStyle = style => ({
@@ -41,8 +35,7 @@ export const fetchInitialData = () => async dispatch => {
     redLine,
     blueLine
   }
-  const action = getDataFromServer(data)
-  dispatch(action)
+  dispatch(setTrainData(data))
 }
 
 // INITIAL STATE
@@ -55,14 +48,7 @@ const initialState = {
 
 // HANDLERS
 const handlers = {
-  [GET_DATA_FROM_SERVER]: (action, state) => {
-    return {
-      ...state,
-      redLineTrains: action.data.redLine,
-      blueLineTrains: action.data.blueLine
-    }
-  },
-  [GET_NEW_DATA_FROM_SERVER]: (action, state) => {
+  [SET_TRAIN_DATA]: (action, state) => {
     return {
       ...state,
       redLineTrains: action.data.redLine,

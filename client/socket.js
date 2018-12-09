@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-import store, {getNewDataFromServer} from './store/index.js'
+import store, {setTrainData} from './store/index.js'
 
 const socket = io(window.location.origin)
 
@@ -8,9 +8,7 @@ socket.on('connect', () => {
 })
 
 socket.on('new_data_from_server', function(newData) {
-  console.log('NEW DATA ----> ', newData)
-  const action = getNewDataFromServer(newData)
-  store.dispatch(action)
+  store.dispatch(setTrainData(newData))
 })
 
 export default socket

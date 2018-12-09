@@ -12,7 +12,7 @@ module.exports = () => {
   const blueLineTargetUrl =
     'http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=617671a8d9104a95a0bde1954211c533&rt=blue&outputType=JSON'
 
-  const appToken = process.env.STREAMDATA_IO_ACCESS_TOKEN
+    const appToken = process.env.STREAMDATA_IO_ACCESS_TOKEN
 
   redLineEventSource = streamdataio.createEventSource(
     redLinetargetUrl,

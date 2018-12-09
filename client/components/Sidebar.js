@@ -19,6 +19,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import Paper from '@material-ui/core/Paper'
+import {Typography} from '@material-ui/core'
 
 const styles = theme => ({
   root: {
@@ -32,7 +33,6 @@ const styles = theme => ({
     textAlign: 'center',
     color: theme.palette.text.secondary
   },
-
   radioRoot: {
     display: 'flex'
   },
@@ -42,9 +42,17 @@ const styles = theme => ({
   group: {
     margin: `${theme.spacing.unit}px 0`
   },
-
+  typography: {
+    color: 'black',
+    fontWeight: 300,
+    letterSpacing: theme.spacing.unit * 1 / 4
+  },
   rightIcon: {
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing.unit,
+    color: 'black'
+  },
+  button: {
+    boxShadow: 'none'
   }
 })
 
@@ -104,7 +112,9 @@ class Sidebar extends React.Component {
           <Grid item xs={12} className={classes.radioRoot}>
             <FormControl component="fieldset" className={classes.formControl}>
               <FormLabel component="legend" className="">
-                CTA LINES
+                <Typography className={classes.typography}>
+                  CTA LINES
+                </Typography>
               </FormLabel>
               <RadioGroup
                 aria-label="Gender"
@@ -113,16 +123,30 @@ class Sidebar extends React.Component {
                 value={trainDisplay}
                 onChange={this.handleChange}
               >
-                <FormControlLabel value="all" control={<Radio />} label="All" />
+                <FormControlLabel
+                  value="all"
+                  control={<Radio />}
+                  label={
+                    <Typography className={classes.typography}>All</Typography>
+                  }
+                />
                 <FormControlLabel
                   value="redLine"
                   control={<Radio />}
-                  label="Red Line"
+                  label={
+                    <Typography className={classes.typography}>
+                      Red Line
+                    </Typography>
+                  }
                 />
                 <FormControlLabel
                   value="blueLine"
                   control={<Radio />}
-                  label="Blue Line"
+                  label={
+                    <Typography className={classes.typography}>
+                      Blue Line
+                    </Typography>
+                  }
                 />
               </RadioGroup>
             </FormControl>
@@ -137,9 +161,11 @@ class Sidebar extends React.Component {
               color="secondary"
               className={classes.button}
             >
-              {trainStationIdx !== null
-                ? stations[trainStationIdx].stationName
-                : 'SELECT STATION'}
+              <Typography className={classes.typography}>
+                {trainStationIdx !== null
+                  ? stations[trainStationIdx].stationName
+                  : 'SELECT STATION'}
+              </Typography>
               <ArrowDropDown className={classes.rightIcon} />
             </Button>
 

@@ -8,15 +8,15 @@ import Button from '@material-ui/core/Button'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import HomeIcon from '@material-ui/icons/Home'
 import {withStyles} from '@material-ui/core/styles'
 
 const styles = theme => ({
   root: {
     flexGrow: 1
   },
-  grow: {
+  title: {
+    fontWeight: 300,
+    letterSpacing: theme.spacing.unit * 1 / 4,
     flexGrow: 1
   },
   homeButton: {
@@ -24,7 +24,12 @@ const styles = theme => ({
     marginRight: 20
   },
   link: {
-    color: 'inherit'
+    color: 'inherit',
+  },
+  navText: {
+    color: 'inherit',
+    fontWeight: 300,
+    letterSpacing: theme.spacing.unit * 1 / 4
   }
 })
 
@@ -34,23 +39,14 @@ const Navbar = props => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            className={classes.homeButton}
-            color="inherit"
-            aria-label="home"
-          >
-            <Link to="/" className={classes.link}>
-              <HomeIcon />
-            </Link>
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
+          <Typography variant="h6" color="inherit" className={classes.title}>
             CTA LIVE TRACKER
           </Typography>
           <Link to="/schedules" className={classes.link}>
-            <Button color="inherit">Schedules</Button>
+            <Button color="inherit"><Typography className={classes.navText}>Schedules</Typography></Button>
           </Link>
           <Link to="/map" className={classes.link}>
-            <Button color="inherit">Map</Button>
+            <Button color="inherit"><Typography className={classes.navText}>Map</Typography></Button>
           </Link>
         </Toolbar>
       </AppBar>

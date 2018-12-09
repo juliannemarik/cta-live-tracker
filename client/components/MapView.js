@@ -4,6 +4,7 @@ import React from 'react'
 // INTERNAL IMPORTS
 import Map from './Map'
 import Sidebar from './Sidebar'
+require('../../secrets')
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -25,6 +26,7 @@ const MapView = props => {
   const lon = -87.65
   const lat = 41.895
   const zoomScale = 10
+
   return (
     <div className={classes.root}>
       <Map
