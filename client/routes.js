@@ -4,10 +4,6 @@ import {Schedules, MapView} from './components'
 
 // ROUTES COMPONENT
 class Routes extends Component {
-  componentDidMount() {
-    // this.props.loadInitialData()
-  }
-
   render() {
     return (
       <Switch>
