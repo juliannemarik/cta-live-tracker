@@ -1,7 +1,6 @@
 const {db, RedLine, BlueLine} = require('../db/index.js')
 const streamdataio = require('streamdataio-js-sdk/dist/bundles/streamdataio-node')
 const jsonPatch = require('fast-json-patch')
-var print = require('node-print')
 require('../../secrets')
 
 
@@ -15,7 +14,7 @@ module.exports = () => {
   const blueLineTargetUrl =
     `http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=${ctaKey}&rt=blue&outputType=JSON`
 
-    const appToken = process.env.STREAMDATA_IO_ACCESS_TOKEN
+  const appToken = process.env.STREAMDATA_IO_ACCESS_TOKEN
 
   redLineEventSource = streamdataio.createEventSource(
     redLinetargetUrl,
