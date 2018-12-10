@@ -2,15 +2,18 @@ const {db, RedLine, BlueLine} = require('../db/index.js')
 const streamdataio = require('streamdataio-js-sdk/dist/bundles/streamdataio-node')
 const jsonPatch = require('fast-json-patch')
 var print = require('node-print')
+require('../../secrets')
+
 
 // STREAMING THE CTA API
 db.sync({force: true}).then(() => console.log('Database is synced'))
 
 module.exports = () => {
+  const ctaKey = process.env.CTA_KEY
   const redLinetargetUrl =
-    'http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=617671a8d9104a95a0bde1954211c533&rt=red&outputType=JSON'
+    `http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=${ctaKey}&rt=red&outputType=JSON`
   const blueLineTargetUrl =
-    'http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=617671a8d9104a95a0bde1954211c533&rt=blue&outputType=JSON'
+    `http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=${ctaKey}&rt=blue&outputType=JSON`
 
     const appToken = process.env.STREAMDATA_IO_ACCESS_TOKEN
 
