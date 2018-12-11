@@ -8,13 +8,13 @@ const server = app.listen(PORT, () => console.log(`Feeling chatty on port ${PORT
 const io = require('socket.io')(server);
 
 // handle sockets
-require('./socket/index.js')(io);
+// require('./socket/index.js')(io);
 
 module.exports = app;
 
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
-dataStream();
+dataStream(io);
 
 // Logging middleware
 app.use(volleyball);

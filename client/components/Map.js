@@ -23,7 +23,7 @@ class Map extends Component {
     })
 
     await this.props.fetchInitialData().then(() => {
-      const {redLineTrains, blueLineTrains, setStyle, setMap} = this.props
+      const {redLineTrains, blueLineTrains} = this.props
 
       // ADD MAP SOURCES
       this.map.addSource('cta-lines', {
@@ -108,8 +108,8 @@ class Map extends Component {
         }
       })
       this.map.on('load', () => {
-        setMap(this.map)
-        setStyle(this.map.getStyle())
+        this.props.setMap(this.map)
+        this.props.setStyle(this.map.getStyle())
       })
     })
   }

@@ -29,8 +29,8 @@ export const toggleTrains = option => ({
 
 // THUNK CREATORS
 export const fetchInitialData = () => async dispatch => {
-  const {data: redLine} = await axios.get('/api/redLine')
-  const {data: blueLine} = await axios.get('/api/blueLine')
+  const {data: redLine} = await axios.get('/api/line/red')
+  const {data: blueLine} = await axios.get('/api/line/blue')
   let data = {
     redLine,
     blueLine
@@ -40,6 +40,10 @@ export const fetchInitialData = () => async dispatch => {
 
 // INITIAL STATE
 const initialState = {
+  trains: {
+    redLine: [],
+    blueLine: []
+  },
   redLineTrains: [],
   blueLineTrains: [],
   style: {},
@@ -51,6 +55,10 @@ const handlers = {
   [SET_TRAIN_DATA]: (action, state) => {
     return {
       ...state,
+      trains: {
+        redLine: action.data.redLine,
+        blueLine: action.data.blueLine,
+      },
       redLineTrains: action.data.redLine,
       blueLineTrains: action.data.blueLine
     }
