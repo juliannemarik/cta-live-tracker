@@ -23,8 +23,6 @@ class Map extends Component {
     })
 
     await this.props.fetchInitialData().then(() => {
-      const {redLineTrains, blueLineTrains} = this.props
-
       // ADD MAP SOURCES
       this.map.addSource('cta-lines', {
         type: 'geojson',
@@ -34,35 +32,23 @@ class Map extends Component {
         type: 'geojson',
         data: geojsonCtaStations
       })
-      this.map.addSource('cta-redLine-trains', {
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: redLineTrains.map(train => {
-            return {
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [train.lon, train.lat]
+      const trainLines = Object.keys(this.props.trains)
+      trainLines.forEach(trainLine => {
+        this.map.addSource(`cta-${trainLine}-trains`, {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: this.props.trains[trainLine].map(train => {
+              return {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [train.lon, train.lat]
+                }
               }
-            }
-          })
-        }
-      })
-      this.map.addSource('cta-blueLine-trains', {
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: blueLineTrains.map(train => {
-            return {
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [train.lon, train.lat]
-              }
-            }
-          })
-        }
+            })
+          }
+        })
       })
 
       // ADD MAP LAYERS
@@ -83,30 +69,45 @@ class Map extends Component {
           'circle-color': '#000000'
         }
       })
-      this.map.addLayer({
-        id: 'cta-redline-trains',
-        type: 'circle',
-        source: 'cta-redLine-trains',
-        paint: {
-          'circle-radius': 3,
-          'circle-color': '#c60c30'
-        },
-        layout: {
-          visibility: 'none'
-        }
+      const trainColors = ['#c60c30', '#00a1de']
+      trainLines.forEach((trainLine, idx) => {
+        this.map.addLayer({
+          id: `cta-${trainLine}-trains`,
+          type: 'circle',
+          source: `cta-${trainLine}-trains`,
+          paint: {
+            'circle-radius': 3,
+            'circle-color': trainColors[idx]
+          },
+          layout: {
+            visibility: 'none'
+          }
+        })
       })
-      this.map.addLayer({
-        id: 'cta-blueline-trains',
-        type: 'circle',
-        source: 'cta-blueLine-trains',
-        paint: {
-          'circle-radius': 3,
-          'circle-color': '#00a1de'
-        },
-        layout: {
-          visibility: 'none'
-        }
-      })
+      // this.map.addLayer({
+      //   id: 'cta-redline-trains',
+      //   type: 'circle',
+      //   source: 'cta-redLine-trains',
+      //   paint: {
+      //     'circle-radius': 3,
+      //     'circle-color': '#c60c30'
+      //   },
+      //   layout: {
+      //     visibility: 'none'
+      //   }
+      // })
+      // this.map.addLayer({
+      //   id: 'cta-blueline-trains',
+      //   type: 'circle',
+      //   source: 'cta-blueLine-trains',
+      //   paint: {
+      //     'circle-radius': 3,
+      //     'circle-color': '#00a1de'
+      //   },
+      //   layout: {
+      //     visibility: 'none'
+      //   }
+      // })
       this.map.on('load', () => {
         this.props.setMap(this.map)
         this.props.setStyle(this.map.getStyle())
@@ -117,9 +118,7 @@ class Map extends Component {
   componentDidUpdate(prevProps) {
     const currentStyle = this.props.style
     const previousStyle = prevProps.style
-
     if (this.props.style === null) return
-
     if (!Immutable.is(previousStyle, currentStyle)) {
       this.map.setStyle(currentStyle)
     }
@@ -127,29 +126,19 @@ class Map extends Component {
 
   render() {
     if (this.props.map !== null) {
-      const {redLineTrains, blueLineTrains} = this.props
-      this.props.map.getSource('cta-redLine-trains').setData({
-        type: 'FeatureCollection',
-        features: redLineTrains.map(train => {
-          return {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [train.lon, train.lat]
+      const trainLines = Object.keys(this.props.trains)
+      trainLines.forEach(trainLine => {
+        this.props.map.getSource(`cta-${trainLine}-trains`).setData({
+          type: 'FeatureCollection',
+          features: this.props.trains[trainLine].map(train => {
+            return {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [train.lon, train.lat]
+              }
             }
-          }
-        })
-      })
-      this.props.map.getSource('cta-blueLine-trains').setData({
-        type: 'FeatureCollection',
-        features: blueLineTrains.map(train => {
-          return {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [train.lon, train.lat]
-            }
-          }
+          })
         })
       })
     }
@@ -159,8 +148,7 @@ class Map extends Component {
 
 const mapState = state => {
   return {
-    redLineTrains: state.redLineTrains,
-    blueLineTrains: state.blueLineTrains,
+    trains: state.trains,
     style: state.style,
     map: state.map
   }
