@@ -42,10 +42,9 @@ export const fetchInitialData = () => async dispatch => {
 const initialState = {
   trains: {
     redLine: [],
-    blueLine: []
+    blueLine: [],
+    greenLine: [],
   },
-  redLineTrains: [],
-  blueLineTrains: [],
   style: {},
   map: null
 }
@@ -58,9 +57,7 @@ const handlers = {
       trains: {
         redLine: action.data.redLine,
         blueLine: action.data.blueLine,
-      },
-      redLineTrains: action.data.redLine,
-      blueLineTrains: action.data.blueLine
+      }
     }
   },
   [SET_STYLE]: (action, state) => {
@@ -72,10 +69,10 @@ const handlers = {
   [TOGGLE_TRAINS]: (action, state) => {
     const newStyle = {...state.style}
     const redTrainLayer = newStyle.layers.find(
-      layer => layer.id === 'cta-redline-trains'
+      layer => layer.id === 'cta-redLine-trains'
     )
     const blueTrainLayer = newStyle.layers.find(
-      layer => layer.id === 'cta-blueline-trains'
+      layer => layer.id === 'cta-blueLine-trains'
     )
 
     if (action.option === 'all') {
