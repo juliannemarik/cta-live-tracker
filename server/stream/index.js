@@ -13,10 +13,13 @@ module.exports = io => {
     let trainData = {
       redLine: [],
       blueLine: [],
-      greenLine: []
+      greenLine: [],
+      orangeLine: [],
+      brownLine: [],
+      pinkLine: []
     }
-    const trainColors = ['red', 'blue', 'G']
-    const trainLines = ['redLine', 'blueLine', 'greenLine']
+    const trainColors = ['red', 'blue', 'G', 'Org', 'Brn', 'pink']
+    const trainLines = ['redLine', 'blueLine', 'greenLine', 'orangeLine', 'brownLine', 'pinkLine']
 
     const ctaKey = process.env.CTA_KEY
     const targetUrls = trainColors.map(color => {

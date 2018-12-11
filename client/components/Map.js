@@ -69,7 +69,7 @@ class Map extends Component {
           'circle-color': '#000000'
         }
       })
-      const trainColors = ['#c60c30', '#00a1de', '#009b3a']
+      const trainColors = ['#c60c30', '#00a1de', '#009b3a', '#f9461c', '#62361b', '#e27ea6']
       trainLines.forEach((trainLine, idx) => {
         this.map.addLayer({
           id: `cta-${trainLine}-trains`,

@@ -31,9 +31,18 @@ export const toggleTrains = option => ({
 export const fetchInitialData = () => async dispatch => {
   const {data: redLine} = await axios.get('/api/line/red')
   const {data: blueLine} = await axios.get('/api/line/blue')
+  const {data: greenLine} = await axios.get('/api/line/G')
+  const {data: orangeLine} = await axios.get('/api/line/Org')
+  const {data: brownLine} = await axios.get('/api/line/Brn')
+  const {data: pinkLine} = await axios.get('/api/line/pink')
+
   let data = {
     redLine,
-    blueLine
+    blueLine,
+    greenLine,
+    orangeLine,
+    brownLine,
+    pinkLine
   }
   dispatch(setTrainData(data))
 }
@@ -44,6 +53,9 @@ const initialState = {
     redLine: [],
     blueLine: [],
     greenLine: [],
+    orangeLine: [],
+    brownLine: [],
+    pinkLine: []
   },
   style: {},
   map: null
@@ -57,6 +69,10 @@ const handlers = {
       trains: {
         redLine: action.data.redLine,
         blueLine: action.data.blueLine,
+        greenLine: action.data.greenLine,
+        orangeLine: action.data.orangeLine,
+        brownLine: action.data.brownLine,
+        pinkLine: action.data.pinkLine
       }
     }
   },
@@ -74,10 +90,27 @@ const handlers = {
     const blueTrainLayer = newStyle.layers.find(
       layer => layer.id === 'cta-blueLine-trains'
     )
+    const greenTrainLayer = newStyle.layers.find(
+      layer => layer.id === 'cta-greenLine-trains'
+    )
+    const orangeTrainLayer = newStyle.layers.find(
+      layer => layer.id === 'cta-orangeLine-trains'
+    )
+    const brownTrainLayer = newStyle.layers.find(
+      layer => layer.id === 'cta-brownLine-trains'
+    )
+    const pinkTrainLayer = newStyle.layers.find(
+      layer => layer.id === 'cta-pinkLine-trains'
+    )
 
     if (action.option === 'all') {
       redTrainLayer.layout.visibility = 'visible'
       blueTrainLayer.layout.visibility = 'visible'
+      greenTrainLayer.layout.visibility = 'visible'
+      orangeTrainLayer.layout.visibility = 'visible'
+      brownTrainLayer.layout.visibility = 'visible'
+      pinkTrainLayer.layout.visibility = 'visible'
+
     } else if (action.option === 'blueLine') {
       redTrainLayer.layout.visibility = 'none'
       blueTrainLayer.layout.visibility = 'visible'
