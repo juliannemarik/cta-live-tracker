@@ -35,8 +35,7 @@ export const fetchInitialData = () => async dispatch => {
   const {data: orangeLine} = await axios.get('/api/line/Org')
   const {data: brownLine} = await axios.get('/api/line/Brn')
   const {data: pinkLine} = await axios.get('/api/line/pink')
-
-  let data = {
+  const data = {
     redLine,
     blueLine,
     greenLine,
@@ -56,6 +55,10 @@ const initialState = {
     orangeLine: [],
     brownLine: [],
     pinkLine: []
+  },
+  trainInfo: {
+    colors: ['#c60c30', '#00a1de', '#009b3a', '#f9461c', '#62361b', '#e27ea6'],
+    lines: ['redLine', 'blueLine', 'greenLine', 'orangeLine', 'brownLine', 'pinkLine']
   },
   style: {},
   map: null
@@ -84,39 +87,20 @@ const handlers = {
   },
   [TOGGLE_TRAINS]: (action, state) => {
     const newStyle = {...state.style}
-    const redTrainLayer = newStyle.layers.find(
-      layer => layer.id === 'cta-redLine-trains'
-    )
-    const blueTrainLayer = newStyle.layers.find(
-      layer => layer.id === 'cta-blueLine-trains'
-    )
-    const greenTrainLayer = newStyle.layers.find(
-      layer => layer.id === 'cta-greenLine-trains'
-    )
-    const orangeTrainLayer = newStyle.layers.find(
-      layer => layer.id === 'cta-orangeLine-trains'
-    )
-    const brownTrainLayer = newStyle.layers.find(
-      layer => layer.id === 'cta-brownLine-trains'
-    )
-    const pinkTrainLayer = newStyle.layers.find(
-      layer => layer.id === 'cta-pinkLine-trains'
-    )
-
+    const trainLayers = state.trainInfo.lines.map(line => {
+      return newStyle.layers.find(
+        layer => layer.id === `cta-${line}-trains`
+      )
+    })
     if (action.option === 'all') {
-      redTrainLayer.layout.visibility = 'visible'
-      blueTrainLayer.layout.visibility = 'visible'
-      greenTrainLayer.layout.visibility = 'visible'
-      orangeTrainLayer.layout.visibility = 'visible'
-      brownTrainLayer.layout.visibility = 'visible'
-      pinkTrainLayer.layout.visibility = 'visible'
-
-    } else if (action.option === 'blueLine') {
-      redTrainLayer.layout.visibility = 'none'
-      blueTrainLayer.layout.visibility = 'visible'
-    } else if (action.option === 'redLine') {
-      redTrainLayer.layout.visibility = 'visible'
-      blueTrainLayer.layout.visibility = 'none'
+      trainLayers.forEach(trainLayer => {
+        trainLayer.layout.visibility = 'visible'
+      })
+    } else {
+      trainLayers.forEach((trainLayer, idx) => {
+        if(state.trainInfo.lines[idx] !== action.option) trainLayer.layout.visibility = 'none'
+        else trainLayer.layout.visibility = 'visible'
+      })
     }
     return {...state, style: newStyle}
   }

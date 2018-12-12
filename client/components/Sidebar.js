@@ -58,7 +58,7 @@ const styles = theme => ({
 
 class Sidebar extends React.Component {
   state = {
-    trainDisplay: 'All',
+    trainDisplay: '',
     anchorEl: null,
     trainStationIdx: null
   }
@@ -145,6 +145,42 @@ class Sidebar extends React.Component {
                   label={
                     <Typography className={classes.typography}>
                       Blue Line
+                    </Typography>
+                  }
+                />
+                <FormControlLabel
+                  value="greenLine"
+                  control={<Radio />}
+                  label={
+                    <Typography className={classes.typography}>
+                      Green Line
+                    </Typography>
+                  }
+                />
+                <FormControlLabel
+                  value="orangeLine"
+                  control={<Radio />}
+                  label={
+                    <Typography className={classes.typography}>
+                      Orange Line
+                    </Typography>
+                  }
+                />
+                <FormControlLabel
+                  value="brownLine"
+                  control={<Radio />}
+                  label={
+                    <Typography className={classes.typography}>
+                      Brown Line
+                    </Typography>
+                  }
+                />
+                <FormControlLabel
+                  value="pinkLine"
+                  control={<Radio />}
+                  label={
+                    <Typography className={classes.typography}>
+                      Pink Line
                     </Typography>
                   }
                 />

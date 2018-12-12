@@ -69,7 +69,6 @@ class Map extends Component {
           'circle-color': '#000000'
         }
       })
-      const trainColors = ['#c60c30', '#00a1de', '#009b3a', '#f9461c', '#62361b', '#e27ea6']
       trainLines.forEach((trainLine, idx) => {
         this.map.addLayer({
           id: `cta-${trainLine}-trains`,
@@ -77,17 +76,17 @@ class Map extends Component {
           source: `cta-${trainLine}-trains`,
           paint: {
             'circle-radius': 3,
-            'circle-color': trainColors[idx]
+            'circle-color': this.props.trainColors[idx]
           },
           layout: {
             visibility: 'none'
           }
         })
       })
-      this.map.on('load', () => {
-        this.props.setMap(this.map)
-        this.props.setStyle(this.map.getStyle())
-      })
+      // this.map.on('load', () => {
+      this.props.setMap(this.map)
+      this.props.setStyle(this.map.getStyle())
+      // })
     })
   }
 
@@ -125,6 +124,7 @@ class Map extends Component {
 const mapState = state => {
   return {
     trains: state.trains,
+    trainColors: state.trainInfo.colors,
     style: state.style,
     map: state.map
   }
