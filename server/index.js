@@ -1,20 +1,22 @@
 const path = require('path');
 const express = require('express');
 const volleyball = require('volleyball');
+const {db} = require('./db');
 const PORT = process.env.PORT || 3000;
 const app = express();
 const dataStream = require('./stream/index.js')
 const server = app.listen(PORT, () => console.log(`Feeling chatty on port ${PORT}`));
 const io = require('socket.io')(server);
 
-// handle sockets
-// require('./socket/index.js')(io);
-
 module.exports = app;
 
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
+// Connect Streamdata.io
 dataStream(io);
+
+// Sync the database
+db.sync().then(() => console.log('Database is synced'));
 
 // Logging middleware
 app.use(volleyball);

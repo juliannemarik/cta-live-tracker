@@ -1,5 +1,5 @@
 const db = require('./db')
-const RedLine = require('./models/redLine.model')
-const BlueLine = require('./models/blueLine.model')
+const lines = require('./models/lines')
+const trains = require('./models/trains')
 
-module.exports = {db, RedLine, BlueLine}
+module.exports = { db, lines, trains }
