@@ -3,7 +3,7 @@ import thunkMiddleware from 'redux-thunk'
 import loggingMiddleware from 'redux-logger'
 import axios from 'axios'
 
-// ACTION TYPES
+// ACTION TYPE
 const SET_TRAIN_DATA = 'SET_TRAIN_DATA'
 const SET_STYLE = 'SET_STYLE'
 const SET_MAP = 'SET_MAP'
