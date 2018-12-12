@@ -13,5 +13,3 @@ router.get('/:color', async (req, res, next) => {
     next(error)
   }
 })
-
-
