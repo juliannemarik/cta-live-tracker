@@ -8,13 +8,13 @@ const server = app.listen(PORT, () => console.log(`Feeling chatty on port ${PORT
 const io = require('socket.io')(server);
 
 // handle sockets
-require('./socket/index.js')(io);
+// require('./socket/index.js')(io);
 
 module.exports = app;
 
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
-dataStream();
+dataStream(io);
 
 // Logging middleware
 app.use(volleyball);
@@ -35,11 +35,6 @@ app.use((req, res, next) =>
   path.extname(req.path).length > 0 ?
     res.status(404).send('Not found') :
     next()
-);
-
-// send index.html
-app.use('*', (req, res, next) =>
-  res.sendFile(path.join(__dirname, '..', 'public/index.html'))
 );
 
 // error handling endware

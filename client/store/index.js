@@ -29,19 +29,37 @@ export const toggleTrains = option => ({
 
 // THUNK CREATORS
 export const fetchInitialData = () => async dispatch => {
-  const {data: redLine} = await axios.get('/api/redLine')
-  const {data: blueLine} = await axios.get('/api/blueLine')
-  let data = {
+  const {data: redLine} = await axios.get('/api/line/red')
+  const {data: blueLine} = await axios.get('/api/line/blue')
+  const {data: greenLine} = await axios.get('/api/line/G')
+  const {data: orangeLine} = await axios.get('/api/line/Org')
+  const {data: brownLine} = await axios.get('/api/line/Brn')
+  const {data: pinkLine} = await axios.get('/api/line/pink')
+  const data = {
     redLine,
-    blueLine
+    blueLine,
+    greenLine,
+    orangeLine,
+    brownLine,
+    pinkLine
   }
   dispatch(setTrainData(data))
 }
 
 // INITIAL STATE
 const initialState = {
-  redLineTrains: [],
-  blueLineTrains: [],
+  trains: {
+    redLine: [],
+    blueLine: [],
+    greenLine: [],
+    orangeLine: [],
+    brownLine: [],
+    pinkLine: []
+  },
+  trainInfo: {
+    colors: ['#c60c30', '#00a1de', '#009b3a', '#f9461c', '#62361b', '#e27ea6'],
+    lines: ['redLine', 'blueLine', 'greenLine', 'orangeLine', 'brownLine', 'pinkLine']
+  },
   style: {},
   map: null
 }
@@ -51,8 +69,14 @@ const handlers = {
   [SET_TRAIN_DATA]: (action, state) => {
     return {
       ...state,
-      redLineTrains: action.data.redLine,
-      blueLineTrains: action.data.blueLine
+      trains: {
+        redLine: action.data.redLine,
+        blueLine: action.data.blueLine,
+        greenLine: action.data.greenLine,
+        orangeLine: action.data.orangeLine,
+        brownLine: action.data.brownLine,
+        pinkLine: action.data.pinkLine
+      }
     }
   },
   [SET_STYLE]: (action, state) => {
@@ -63,22 +87,20 @@ const handlers = {
   },
   [TOGGLE_TRAINS]: (action, state) => {
     const newStyle = {...state.style}
-    const redTrainLayer = newStyle.layers.find(
-      layer => layer.id === 'cta-redline-trains'
-    )
-    const blueTrainLayer = newStyle.layers.find(
-      layer => layer.id === 'cta-blueline-trains'
-    )
-
+    const trainLayers = state.trainInfo.lines.map(line => {
+      return newStyle.layers.find(
+        layer => layer.id === `cta-${line}-trains`
+      )
+    })
     if (action.option === 'all') {
-      redTrainLayer.layout.visibility = 'visible'
-      blueTrainLayer.layout.visibility = 'visible'
-    } else if (action.option === 'blueLine') {
-      redTrainLayer.layout.visibility = 'none'
-      blueTrainLayer.layout.visibility = 'visible'
-    } else if (action.option === 'redLine') {
-      redTrainLayer.layout.visibility = 'visible'
-      blueTrainLayer.layout.visibility = 'none'
+      trainLayers.forEach(trainLayer => {
+        trainLayer.layout.visibility = 'visible'
+      })
+    } else {
+      trainLayers.forEach((trainLayer, idx) => {
+        if(state.trainInfo.lines[idx] !== action.option) trainLayer.layout.visibility = 'none'
+        else trainLayer.layout.visibility = 'visible'
+      })
     }
     return {...state, style: newStyle}
   }
