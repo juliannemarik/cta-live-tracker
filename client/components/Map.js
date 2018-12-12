@@ -11,7 +11,7 @@ import geojsonCtaLines from '../data/CTA_Rail_Lines.json'
 import geojsonCtaStations from '../data/CTA_Rail_Stations.json'
 
 class Map extends Component {
-  async componentDidMount() {
+  componentDidMount() {
     const {accessToken, styleName, lon, lat, zoomScale} = this.props
     mapboxgl.accessToken = accessToken
 
@@ -22,72 +22,72 @@ class Map extends Component {
       zoom: [zoomScale]
     })
 
-    await this.props.fetchInitialData().then(() => {
-      // ADD MAP SOURCES
-      this.map.addSource('cta-lines', {
-        type: 'geojson',
-        data: geojsonCtaLines
-      })
-      this.map.addSource('cta-stations', {
-        type: 'geojson',
-        data: geojsonCtaStations
-      })
-      const trainLines = Object.keys(this.props.trains)
-      trainLines.forEach(trainLine => {
-        this.map.addSource(`cta-${trainLine}-trains`, {
+    if (!this.map.isStyleLoaded()) {
+      setTimeout(() => {
+        // ADD MAP SOURCES
+        this.map.addSource('cta-lines', {
           type: 'geojson',
-          data: {
-            type: 'FeatureCollection',
-            features: this.props.trains[trainLine].map(train => {
-              return {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [train.lon, train.lat]
+          data: geojsonCtaLines
+        })
+        this.map.addSource('cta-stations', {
+          type: 'geojson',
+          data: geojsonCtaStations
+        })
+        const trainLines = Object.keys(this.props.trains)
+        trainLines.forEach(trainLine => {
+          this.map.addSource(`cta-${trainLine}-trains`, {
+            type: 'geojson',
+            data: {
+              type: 'FeatureCollection',
+              features: this.props.trains[trainLine].map(train => {
+                return {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [train.lon, train.lat]
+                  }
                 }
-              }
-            })
-          }
+              })
+            }
+          })
         })
-      })
 
-      // ADD MAP LAYERS
-      this.map.addLayer({
-        id: 'cta-lines',
-        type: 'line',
-        source: 'cta-lines',
-        layout: {
-          'line-cap': 'round'
-        }
-      })
-      this.map.addLayer({
-        id: 'cta-stations',
-        type: 'circle',
-        source: 'cta-stations',
-        paint: {
-          'circle-radius': 1.5,
-          'circle-color': '#000000'
-        }
-      })
-      trainLines.forEach((trainLine, idx) => {
+        // ADD MAP LAYERS
         this.map.addLayer({
-          id: `cta-${trainLine}-trains`,
-          type: 'circle',
-          source: `cta-${trainLine}-trains`,
-          paint: {
-            'circle-radius': 3,
-            'circle-color': this.props.trainColors[idx]
-          },
+          id: 'cta-lines',
+          type: 'line',
+          source: 'cta-lines',
           layout: {
-            visibility: 'none'
+            'line-cap': 'round'
           }
         })
-      })
-      // this.map.on('load', () => {
-      this.props.setMap(this.map)
-      this.props.setStyle(this.map.getStyle())
-      // })
-    })
+        this.map.addLayer({
+          id: 'cta-stations',
+          type: 'circle',
+          source: 'cta-stations',
+          paint: {
+            'circle-radius': 1.5,
+            'circle-color': '#000000'
+          }
+        })
+        trainLines.forEach((trainLine, idx) => {
+          this.map.addLayer({
+            id: `cta-${trainLine}-trains`,
+            type: 'circle',
+            source: `cta-${trainLine}-trains`,
+            paint: {
+              'circle-radius': 3,
+              'circle-color': this.props.trainColors[idx]
+            },
+            layout: {
+              visibility: 'none'
+            }
+          })
+        })
+        this.props.setMap(this.map)
+        this.props.setStyle(this.map.getStyle())
+      }, 2000)
+    }
   }
 
   componentDidUpdate(prevProps) {
