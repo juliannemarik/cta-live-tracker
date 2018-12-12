@@ -28,23 +28,6 @@ export const toggleTrains = option => ({
 })
 
 // THUNK CREATORS
-export const fetchInitialData = () => async dispatch => {
-  const {data: redLine} = await axios.get('/api/line/red')
-  const {data: blueLine} = await axios.get('/api/line/blue')
-  const {data: greenLine} = await axios.get('/api/line/G')
-  const {data: orangeLine} = await axios.get('/api/line/Org')
-  const {data: brownLine} = await axios.get('/api/line/Brn')
-  const {data: pinkLine} = await axios.get('/api/line/pink')
-  const data = {
-    redLine,
-    blueLine,
-    greenLine,
-    orangeLine,
-    brownLine,
-    pinkLine
-  }
-  dispatch(setTrainData(data))
-}
 
 // INITIAL STATE
 const initialState = {

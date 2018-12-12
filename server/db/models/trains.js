@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const BlueLineTrains = db.define('blueLine', {
+const Trains = db.define('trains', {
   rn: {
     type: Sequelize.INTEGER
   },
@@ -49,4 +49,4 @@ const BlueLineTrains = db.define('blueLine', {
   }
 })
 
-module.exports = BlueLineTrains
+module.exports = Trains

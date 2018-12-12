@@ -6,7 +6,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 // INTERNAL IMPORTS
-import {fetchInitialData, setStyle, setMap} from '../store/index'
+import {setStyle, setMap} from '../store/index'
 import geojsonCtaLines from '../data/CTA_Rail_Lines.json'
 import geojsonCtaStations from '../data/CTA_Rail_Stations.json'
 
@@ -132,7 +132,6 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchInitialData: () => dispatch(fetchInitialData()),
     setStyle: style => dispatch(setStyle(style)),
     setMap: map => dispatch(setMap(map))
   }
