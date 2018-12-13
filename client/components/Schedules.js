@@ -2,63 +2,40 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-// INTERNAL IMPORTS
-import {fetchInitialData} from '../store/index'
-
 class Schedules extends Component {
-  componentDidMount() {
-    this.props.fetchInitialData()
-  }
-
   render() {
+    const trainLines = Object.keys(this.props.trains)
     return (
       <div id="tables">
-        <table>
-          <tbody>
-            <tr>
-              <th colSpan="3" style={{color: '#c60c30'}}>
-                RED LINE
-              </th>
-            </tr>
-            <tr>
-              <th> Route Number </th>
-              <th> Latitude </th>
-              <th> Longitude </th>
-            </tr>
-            {this.props.redLineTrains.map((train, idx) => {
-              return (
-                <tr key={idx}>
-                  <td>{train.rn}</td>
-                  <td>{train.lat}</td>
-                  <td>{train.lon}</td>
+        {trainLines.map((trainLine, idx) => {
+          console.log('TRAIN LINE', trainLine)
+          return (
+            <table key={idx}>
+              <tbody>
+                <tr>
+                  <th colSpan="3" style={{color: this.props.trainColors[idx]}}>
+                    {trainLine}
+                  </th>
                 </tr>
-              )
-            })}
-          </tbody>
-        </table>
-        <table>
-          <tbody>
-            <tr>
-              <th colSpan="3" style={{color: '#00a1de'}}>
-                BLUE LINE
-              </th>
-            </tr>
-            <tr>
-              <th> Route Number </th>
-              <th> Latitude </th>
-              <th> Longitude </th>
-            </tr>
-            {this.props.blueLineTrains.map((train, idx) => {
-              return (
-                <tr key={idx}>
-                  <td>{train.rn}</td>
-                  <td>{train.lat}</td>
-                  <td>{train.lon}</td>
+                <tr>
+                  <th> Route Number </th>
+                  <th> Latitude </th>
+                  <th> Longitude </th>
                 </tr>
-              )
-            })}
-          </tbody>
-        </table>
+                {this.props.trains[trainLine].map((train, idx) => {
+                  console.log("TRAIN ===>", train.rn, train.lat, train.lon)
+                  return (
+                    <tr key={idx}>
+                      <td>{train.rn}</td>
+                      <td>{train.lat}</td>
+                      <td>{train.lon}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          )
+        })}
       </div>
     )
   }
@@ -66,15 +43,9 @@ class Schedules extends Component {
 
 const mapState = state => {
   return {
-    redLineTrains: state.redLineTrains,
-    blueLineTrains: state.blueLineTrains
+    trains: state.trains,
+    trainColors: state.trainInfo.colors,
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    fetchInitialData: () => dispatch(fetchInitialData())
-  }
-}
-
-export default connect(mapState, mapDispatch)(Schedules)
+export default connect(mapState)(Schedules)
