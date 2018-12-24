@@ -37,7 +37,6 @@ class Map extends Component {
   }
 
   render() {
-    console.log('MAP RENDER')
     return (
       <div id="map" style={{width: '80vw', height: '92vh'}}>
         {this.props.children}

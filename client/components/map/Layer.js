@@ -14,7 +14,6 @@ class Layer extends Component {
       map.addLayer(layer)
       this.props.setStyle(map.getStyle())
     }
-
     return <div />
   }
 }
