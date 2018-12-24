@@ -11,11 +11,8 @@ class Layer extends Component {
     const {layer} = this.props
     if (this.props.map && Object.keys(this.props.style).length && !this.props.map.getLayer(layer.id)) {
       const {map} = this.props
-      console.log("ADDING A LAYER")
       map.addLayer(layer)
       this.props.setStyle(map.getStyle())
-      console.log("MAP STYLE ===> ", this.props.style)
-      console.log("MAP STYLE FROM GETSTYLE ===> ", map.getStyle())
     }
 
     return <div />

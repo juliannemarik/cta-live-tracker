@@ -30,16 +30,14 @@ class Map extends Component {
   componentDidUpdate(prevProps) {
     const currentStyle = this.props.style
     const previousStyle = prevProps.style
-    console.log("WAS STYLE CHANGED?", currentStyle, previousStyle)
     if (this.props.style === null) return
     if (!Immutable.is(previousStyle, currentStyle)) {
-      console.log("STYLE CHANGED", previousStyle, currentStyle)
       this.map.setStyle(currentStyle)
     }
   }
 
   render() {
-    console.log("MAP RENDER")
+    console.log('MAP RENDER')
     return (
       <div id="map" style={{width: '80vw', height: '92vh'}}>
         {this.props.children}
