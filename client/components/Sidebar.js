@@ -3,7 +3,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 // INTERNAL IMPORTS
-import {toggleTrains} from '../store/index'
+import {toggleTrains, setStyle} from '../store/index'
 import geojsonCtaStations from '../data/CTA_Rail_Stations.json'
 
 // MATERIAL UI IMPORTS
@@ -237,6 +237,7 @@ const mapState = state => {
 }
 const mapDispatch = dispatch => {
   return {
+    setStyle: style => dispatch(setStyle(style)),
     toggleTrains: option => dispatch(toggleTrains(option))
   }
 }

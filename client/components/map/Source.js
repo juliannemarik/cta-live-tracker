@@ -19,7 +19,6 @@ class Source extends Component {
       this.props.setStyle(this.props.map.getStyle())
     } else if (this.props.map && Object.keys(this.props.style).length && this.props.map.getSource(sourceName)) {
       this.props.map.getSource(sourceName).setData(data)
-      console.log("SOURCE DATA IS BEING UPDATED")
     }
     return <div />
   }
@@ -27,7 +26,6 @@ class Source extends Component {
 
 const mapState = state => {
   return {
-
     style: state.style,
     map: state.map
   }

@@ -23,10 +23,9 @@ const styles = theme => ({
 
 class MapView extends Component {
   render() {
-    const {classes, trains} = this.props
-    const trainLines = Object.keys(this.props.trains)
+    const {classes, trains, trainColors} = this.props
+    const trainLines = Object.keys(trains)
 
-    console.log("TRAINS ===> ", trains)
     return (
       <div className={classes.root}>
         <Map
@@ -54,7 +53,7 @@ class MapView extends Component {
                 type="geojson"
                 data={{
                   type: 'FeatureCollection',
-                  features: this.props.trains[trainLine].map(train => {
+                  features: trains[trainLine].map(train => {
                     return {
                       type: 'Feature',
                       geometry: {
@@ -99,10 +98,10 @@ class MapView extends Component {
                   source: `cta-${trainLine}-trains`,
                   paint: {
                     'circle-radius': 3,
-                    'circle-color': this.props.trainColors[idx]
+                    'circle-color': trainColors[idx]
                   },
                   layout: {
-                    visibility: 'visible'
+                    visibility: 'none'
                   }
                 }}
               />
