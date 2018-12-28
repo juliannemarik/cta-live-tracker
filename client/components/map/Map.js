@@ -22,14 +22,12 @@ class Map extends Component {
     this.props.setMap(this.map)
     if (!this.map.isStyleLoaded()) {
       setTimeout(() => {
-        console.log("SETTING INITIAL STYLE")
         this.props.setStyle(this.map.getStyle())
       }, 2000)
     }
   }
 
   componentDidUpdate(prevProps) {
-    console.log("MAP COMPONENT UPDATED")
     const currentStyle = this.props.style
     const previousStyle = prevProps.style
     if (this.props.style === null) return
@@ -39,7 +37,6 @@ class Map extends Component {
   }
 
   render() {
-    console.log("MAP STYLE LOADED? ", !!Object.keys(this.props.style).length)
     return Object.keys(this.props.style).length ? <div id="map" style={{width: '80vw', height: '92vh'}}>
         {this.props.children}
       </div> : <div id="map" style={{width: '80vw', height: '92vh'}} />

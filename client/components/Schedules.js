@@ -8,7 +8,6 @@ class Schedules extends Component {
     return (
       <div id="tables">
         {trainLines.map((trainLine, idx) => {
-          console.log('TRAIN LINE', trainLine)
           return (
             <table key={idx}>
               <tbody>
@@ -23,7 +22,6 @@ class Schedules extends Component {
                   <th> Longitude </th>
                 </tr>
                 {this.props.trains[trainLine].map((train, idx) => {
-                  console.log("TRAIN ===>", train.rn, train.lat, train.lon)
                   return (
                     <tr key={idx}>
                       <td>{train.rn}</td>
