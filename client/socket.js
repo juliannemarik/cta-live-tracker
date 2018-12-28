@@ -7,8 +7,14 @@ socket.on('connect', () => {
   console.log('CLIENT CONNECTION -----> I am now connected to the server!')
 })
 
+let trainCount = 0
 socket.on('new_data_from_server', function(newData) {
-  store.dispatch(setTrainData(newData))
+  if(trainCount === 5) {
+    store.dispatch(setTrainData(newData))
+    trainCount = 0
+  } else {
+    trainCount ++
+  }
 })
 
 export default socket

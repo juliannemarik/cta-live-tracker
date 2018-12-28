@@ -7,17 +7,11 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import {setStyle, setMap} from '../../store/index'
 
 class Source extends Component {
-  componentDidMount() {}
   render() {
     const {type, data, sourceName} = this.props
-
-    if (this.props.map && Object.keys(this.props.style).length && !this.props.map.getSource(sourceName)) {
-      this.props.map.addSource(sourceName, {
-        type,
-        data
-      })
-      this.props.setStyle(this.props.map.getStyle())
-    } else if (this.props.map && Object.keys(this.props.style).length && this.props.map.getSource(sourceName)) {
+    if (!this.props.map.getSource(sourceName)) {
+      this.props.map.addSource(sourceName, {type, data})
+    } else if (this.props.map.getSource(sourceName)) {
       this.props.map.getSource(sourceName).setData(data)
     }
     return <div />

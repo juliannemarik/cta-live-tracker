@@ -7,13 +7,16 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import {setStyle, setMap} from '../../store/index'
 
 class Layer extends Component {
-  render() {
+  componentDidMount() {
     const {layer} = this.props
-    if (this.props.map && Object.keys(this.props.style).length && !this.props.map.getLayer(layer.id)) {
+    if (!this.props.map.getLayer(layer.id)) {
       const {map} = this.props
       map.addLayer(layer)
       this.props.setStyle(map.getStyle())
     }
+  }
+
+  render() {
     return <div />
   }
 }
