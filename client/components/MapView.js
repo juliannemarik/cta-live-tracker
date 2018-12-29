@@ -35,6 +35,7 @@ class MapView extends Component {
           lat={41.895}
           zoomScale={10}
         >
+          {/* ADD MAP SOURCES */}
           <Source
             sourceName="cta-lines"
             type="geojson"
@@ -67,6 +68,7 @@ class MapView extends Component {
             )
           })}
 
+          {/* ADD MAP LAYERS */}
           <Layer
             layer={{
               id: 'cta-lines',
@@ -107,6 +109,16 @@ class MapView extends Component {
               />
             )
           })}
+
+          {/* ADD MAP EVENTS */}
+          {/* <Event
+            arguments={{
+              eventName: 'mouseenter',
+              layer: '',
+              function: ''
+            }}
+          /> */}
+
         </Map>
         <Sidebar width={classes.sidebar} />
       </div>

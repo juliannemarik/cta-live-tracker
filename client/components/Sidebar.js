@@ -232,7 +232,8 @@ class Sidebar extends React.Component {
 
 const mapState = state => {
   return {
-    map: state.map
+    map: state.map,
+    style: state.style
   }
 }
 const mapDispatch = dispatch => {

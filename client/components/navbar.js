@@ -35,23 +35,15 @@ const styles = theme => ({
 
 const Navbar = props => {
   const {classes} = props
-  return (
-    <div className={classes.root}>
+  return <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.title}>
             CTA LIVE TRACKER
           </Typography>
-          <Link to="/schedules" className={classes.link}>
-            <Button color="inherit"><Typography className={classes.navText}>Schedules</Typography></Button>
-          </Link>
-          <Link to="/map" className={classes.link}>
-            <Button color="inherit"><Typography className={classes.navText}>Map</Typography></Button>
-          </Link>
         </Toolbar>
       </AppBar>
     </div>
-  )
 }
 
 Navbar.propTypes = {

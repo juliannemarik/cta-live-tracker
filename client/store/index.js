@@ -7,6 +7,7 @@ import axios from 'axios'
 const SET_TRAIN_DATA = 'SET_TRAIN_DATA'
 const SET_STYLE = 'SET_STYLE'
 const SET_MAP = 'SET_MAP'
+const ADD_SOURCE = 'ADD_SOURCE'
 const TOGGLE_TRAINS = 'TOGGLE_TRAINS'
 
 // ACTION CREATORS
@@ -50,6 +51,10 @@ const initialState = {
 // HANDLERS
 const handlers = {
   [SET_TRAIN_DATA]: (action, state) => {
+    if(state.map.getSource('cta-blueLine-trains')){
+      console.log("MAP - SOURCES CHECK (SET TRAIN DATA)", state.map.style.stylesheet.sources['cta-blueLine-trains'].data.features[0].geometry.coordinates)
+      console.log("STYLE - SOURCES CHECK (SET TRAIN DATA)", state.style.sources['cta-blueLine-trains'].data.features[0].geometry.coordinates)
+    }
     return {
       ...state,
       trains: {

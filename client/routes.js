@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {withRouter, Route, Switch} from 'react-router-dom'
-import {Schedules, MapView} from './components'
+import {MapView} from './components'
 
 // ROUTES COMPONENT
 class Routes extends Component {
@@ -8,8 +8,6 @@ class Routes extends Component {
     return (
       <Switch>
         <Route exact path="/" component={MapView} />,
-        <Route exact path="/map" component={MapView} />,
-        <Route exact path="/schedules" component={Schedules} />
       </Switch>
     )
   }
