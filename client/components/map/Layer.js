@@ -4,16 +4,20 @@ import {connect} from 'react-redux'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 // INTERNAL IMPORTS
-import {setStyle, setMap} from '../../store/index'
+import {setStyle, setMap, setLayer} from '../../store/index'
 
 class Layer extends Component {
+  // componentDidMount() {
+  //   const {layer} = this.props
+  //   if (!this.props.map.getLayer(layer.id)) {
+  //     const {map} = this.props
+  //     map.addLayer(layer)
+  //     this.props.setStyle(map.getStyle())
+  //   }
+  // }
   componentDidMount() {
     const {layer} = this.props
-    if (!this.props.map.getLayer(layer.id)) {
-      const {map} = this.props
-      map.addLayer(layer)
-      this.props.setStyle(map.getStyle())
-    }
+    this.props.setLayer(layer)
   }
 
   render() {
@@ -31,6 +35,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     setStyle: style => dispatch(setStyle(style)),
+    setLayer: layer => dispatch(setLayer(layer)),
     setMap: map => dispatch(setMap(map))
   }
 }

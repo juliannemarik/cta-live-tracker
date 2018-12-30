@@ -2,18 +2,18 @@ const streamdataio = require('streamdataio-js-sdk/dist/bundles/streamdataio-node
 const jsonPatch = require('fast-json-patch')
 require('../../secrets')
 
-// STREAMING THE CTA API
+let trainData = {
+  redLine: [],
+  blueLine: [],
+  greenLine: [],
+  orangeLine: [],
+  brownLine: [],
+  pinkLine: []
+}
+
 module.exports = io => {
   io.on('connection', socket => {
     console.log('SOCKET CONNECTION -----> ', socket.id, ' has made a persistent connection to the server!')
-    let trainData = {
-      redLine: [],
-      blueLine: [],
-      greenLine: [],
-      orangeLine: [],
-      brownLine: [],
-      pinkLine: []
-    }
     const trainColors = ['red', 'blue', 'G', 'Org', 'Brn', 'pink']
     const trainLines = ['redLine', 'blueLine', 'greenLine', 'orangeLine', 'brownLine', 'pinkLine']
 

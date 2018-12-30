@@ -1,13 +1,13 @@
 import {createStore, applyMiddleware} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import loggingMiddleware from 'redux-logger'
-import axios from 'axios'
 
 // ACTION TYPES
 const SET_TRAIN_DATA = 'SET_TRAIN_DATA'
 const SET_STYLE = 'SET_STYLE'
 const SET_MAP = 'SET_MAP'
-const ADD_SOURCE = 'ADD_SOURCE'
+const SET_SOURCE = 'SET_SOURCE'
+const SET_LAYER = 'SET_LAYER'
 const TOGGLE_TRAINS = 'TOGGLE_TRAINS'
 
 // ACTION CREATORS
@@ -22,6 +22,15 @@ export const setStyle = style => ({
 export const setMap = map => ({
   type: SET_MAP,
   map
+})
+export const setSource = (sourceName, source) => ({
+  type: SET_SOURCE,
+  sourceName,
+  source
+})
+export const setLayer = layer => ({
+  type: SET_LAYER,
+  layer
 })
 export const toggleTrains = option => ({
   type: TOGGLE_TRAINS,
@@ -51,10 +60,6 @@ const initialState = {
 // HANDLERS
 const handlers = {
   [SET_TRAIN_DATA]: (action, state) => {
-    if(state.map.getSource('cta-blueLine-trains')){
-      console.log("MAP - SOURCES CHECK (SET TRAIN DATA)", state.map.style.stylesheet.sources['cta-blueLine-trains'].data.features[0].geometry.coordinates)
-      console.log("STYLE - SOURCES CHECK (SET TRAIN DATA)", state.style.sources['cta-blueLine-trains'].data.features[0].geometry.coordinates)
-    }
     return {
       ...state,
       trains: {
@@ -72,6 +77,17 @@ const handlers = {
   },
   [SET_MAP]: (action, state) => {
     return {...state, map: action.map}
+  },
+  [SET_SOURCE]: (action, state) => {
+    const newStyle ={...state.style}
+    newStyle.sources[action.sourceName] = action.source
+    return {...state, style: newStyle}
+  },
+  [SET_LAYER]: (action, state) => {
+    const newStyle = {...state.style}
+    // console.log("STYLE LAYERS", (newStyle.layers[newStyle.layers.length-1]))
+    newStyle.layers[newStyle.layers.length] = action.layer
+    return {...state, style: newStyle}
   },
   [TOGGLE_TRAINS]: (action, state) => {
     const newStyle = {...state.style}
