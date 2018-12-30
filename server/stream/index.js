@@ -49,7 +49,7 @@ module.exports = io => {
           jsonPatch.applyPatch(result, patch)
           trains = result.ctatt.route[0].train
           trainData[trainLines[idx]] = trains
-          socket.emit('new_data_from_server', trainData)
+          socket.emit('updated_data_from_server', trainData)
           console.log(
             `\n${trainColors[
               idx
