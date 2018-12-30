@@ -85,7 +85,6 @@ const handlers = {
   },
   [SET_LAYER]: (action, state) => {
     const newStyle = {...state.style}
-    // console.log("STYLE LAYERS", (newStyle.layers[newStyle.layers.length-1]))
     newStyle.layers[newStyle.layers.length] = action.layer
     return {...state, style: newStyle}
   },

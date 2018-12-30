@@ -1,9 +1,10 @@
 // EXTERNAL IMPORTS
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+const dateFormat = require('dateformat');
 
 // INTERNAL IMPORTS
-import {Map, Source, Layer, Sidebar} from './index'
+import {Map, Source, Layer, Popup, Sidebar} from './index'
 require('../../secrets')
 
 // MATERIAL UI IMPORTS
@@ -57,6 +58,9 @@ class MapView extends Component {
                   features: trains[trainLine].map(train => {
                     return {
                       type: 'Feature',
+                      properties: {
+                        description: `<p><b>NEXT STATION:</b> ${train.nextStaNm} </p><p><b>PREDICTED TIME:</b> ${dateFormat(train.prdt, "shortTime")}</p>`
+                      },
                       geometry: {
                         type: 'Point',
                         coordinates: [train.lon, train.lat]
@@ -110,14 +114,9 @@ class MapView extends Component {
             )
           })}
 
-          {/* ADD MAP EVENTS */}
-          {/* <Event
-            arguments={{
-              eventName: 'mouseenter',
-              layer: '',
-              function: ''
-            }}
-          /> */}
+          {/* ADD MAP POPUP */}
+          <Popup
+          />
 
         </Map>
         <Sidebar width={classes.sidebar} />
