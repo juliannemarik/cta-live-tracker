@@ -7,17 +7,6 @@ import mapboxgl from 'mapbox-gl'
 class Popup extends Component {
   componentDidMount() {
     const popup = new mapboxgl.Popup(this.props.popup)
-
-    // this.props.map.on('mouseenter', 'cta-stations', e => {
-    //   this.props.map.getCanvas().style.cursor = 'pointer'
-    //   const coordinates = e.features[0].geometry.coordinates.slice()
-    //   const description = e.features[0].properties.description
-    //   stationPopup
-    //     .setLngLat(coordinates)
-    //     .setHTML(description)
-    //     .addTo(this.props.map)
-    // })
-
     this.props.map.on('mouseenter', this.props.layer, e => {
       this.props.map.getCanvas().style.cursor = 'pointer'
       const coordinates = e.features[0].geometry.coordinates.slice()
