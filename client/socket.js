@@ -28,7 +28,7 @@ socket.on('updated_data_from_server', function(newData) {
           return {
             type: 'Feature',
             properties: {
-              description: `<p><b>NEXT STATION:</b> ${train.nextStaNm} </p><p><b>PREDICTED TIME:</b> ${dateFormat(train.prdt, "shortTime")}</p>`
+              description: `<p><b>NEXT STATION:</b> ${train.nextStaNm} </p><p><b>PREDICTED ARRIVAL:</b> ${dateFormat(train.arrT, "shortTime")}</p>`
             },
             geometry: {
               type: 'Point',

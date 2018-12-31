@@ -59,7 +59,7 @@ class MapView extends Component {
                     return {
                       type: 'Feature',
                       properties: {
-                        description: `<p><b>NEXT STATION:</b> ${train.nextStaNm} </p><p><b>PREDICTED TIME:</b> ${dateFormat(train.prdt, "shortTime")}</p>`
+                        description: `<p><b>NEXT STATION:</b> ${train.nextStaNm} </p><p><b>PREDICTED ARRIVAL:</b> ${dateFormat(train.arrT, "shortTime")}</p>`
                       },
                       geometry: {
                         type: 'Point',
@@ -115,7 +115,21 @@ class MapView extends Component {
           })}
 
           {/* ADD MAP POPUP */}
+          {trainLines.map((trainLine, idx) => {
+            return (
+              <Popup
+                key={idx}
+                popup={{ closeButton: false, closeOnClick: false }}
+                mouseLeave={true}
+                layer= {`cta-${trainLine}-trains`}
+              />
+            )
+          })}
+
           <Popup
+            popup={{ closeButton: true, closeOnClick: true}}
+            mouseLeave={false}
+            layer='cta-stations'
           />
 
         </Map>
