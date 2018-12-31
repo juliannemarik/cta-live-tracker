@@ -47,7 +47,7 @@ class MapView extends Component {
             type="geojson"
             data={geojsonCtaStations}
           />
-          {trainLines.map(trainLine => {
+          {trainLines.map((trainLine, idx) => {
             return (
               <Source
                 key={trainLine}
@@ -59,7 +59,7 @@ class MapView extends Component {
                     return {
                       type: 'Feature',
                       properties: {
-                        description: `<p><b>NEXT STATION:</b> ${train.nextStaNm} </p><p><b>PREDICTED ARRIVAL:</b> ${dateFormat(train.arrT, "shortTime")}</p>`
+                        description: `<h3 style="color:white; background-color:${trainColors[idx]}; text-align:center">${trainLine}: ${train.rn}</h3><p><b>NEXT STATION:</b> ${train.nextStaNm} </p><p><b>PREDICTED ARRIVAL:</b> ${dateFormat(train.arrT, "shortTime")}</p>`
                       },
                       geometry: {
                         type: 'Point',
@@ -114,7 +114,7 @@ class MapView extends Component {
             )
           })}
 
-          {/* ADD MAP POPUP */}
+          {/* ADD MAP POPUPS */}
           {trainLines.map((trainLine, idx) => {
             return (
               <Popup
@@ -125,12 +125,6 @@ class MapView extends Component {
               />
             )
           })}
-
-          <Popup
-            popup={{ closeButton: true, closeOnClick: true}}
-            mouseLeave={false}
-            layer='cta-stations'
-          />
 
         </Map>
         <Sidebar width={classes.sidebar} />
