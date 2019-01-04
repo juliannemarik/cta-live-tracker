@@ -53,7 +53,6 @@ const initialState = {
     colors: ['#c60c30', '#00a1de', '#009b3a', '#f9461c', '#62361b', '#e27ea6'],
     lines: ['redLine', 'blueLine', 'greenLine', 'orangeLine', 'brownLine', 'pinkLine']
   },
-
   style: {},
   map: null
 }

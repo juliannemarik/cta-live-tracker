@@ -34,9 +34,7 @@ module.exports = io => {
       eventSource
         .onOpen(function() {
           console.log(
-            `${trainColors[
-              idx
-            ].toUpperCase()} LINE DATA CONNECTION -----> connected to streaming cta data!`
+            `${trainColors[idx].toUpperCase()} LINE DATA CONNECTION -----> connected to streaming cta data!`
           )
         })
         .onData(function(data) {

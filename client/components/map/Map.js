@@ -5,6 +5,7 @@ import Immutable from 'immutable'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
+
 // INTERNAL IMPORTS
 import {setStyle, setMap} from '../../store/index'
 
